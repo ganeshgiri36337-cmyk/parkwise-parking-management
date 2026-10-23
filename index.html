@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102a43">
+  <title>ParkWise | Parking Management</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="ParkWise home">
+      <span class="brand-mark" aria-hidden="true">P</span>
+      <span>ParkWise</span>
+    </a>
+    <span class="topbar-label">PARKING MANAGEMENT</span>
+  </header>
+
+  <main class="page">
+    <section class="intro">
+      <div>
+        <p class="eyebrow">PARKING, MADE SIMPLE</p>
+        <h1>Good to see you.</h1>
+        <p class="subtitle">Manage arrivals, find vehicles, and keep your parking slots in view.</p>
+      </div>
+      <div class="capacity-pill"><span class="live-dot"></span> 10 total slots</div>
+    </section>
+
+    <section class="stats" aria-label="Parking overview">
+      <article class="stat-card">
+        <span class="stat-label">PARKED NOW</span>
+        <strong id="parked-count">0</strong>
+        <span class="stat-note">vehicles in the lot</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">AVAILABLE</span>
+        <strong id="available-count">10</strong>
+        <span class="stat-note">slots ready to use</span>
+      </article>
+      <article class="stat-card rate-card">
+        <span class="stat-label">HOURLY RATES</span>
+        <span class="rate-list"><b>Bike</b> Rs. 20 <i></i> <b>Auto</b> Rs. 30 <i></i> <b>Car</b> Rs. 40</span>
+        <span class="stat-note">charged per expected hour</span>
+      </article>
+    </section>
+
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+    <section class="workspace">
+      <div class="panel entry-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">NEW ARRIVAL</p>
+            <h2>Park a vehicle</h2>
+          </div>
+          <span class="heading-icon" aria-hidden="true">+</span>
+        </div>
+        <form id="entry-form">
+          <label for="vehicle-number">Vehicle number</label>
+          <input id="vehicle-number" name="number" type="text" placeholder="e.g. MH12AB1234" maxlength="20" autocomplete="off" required>
+
+          <div class="form-row">
+            <div>
+              <label for="vehicle-type">Vehicle type</label>
+              <select id="vehicle-type" name="type" required>
+                <option value="Bike">Bike</option>
+                <option value="Auto">Auto</option>
+                <option value="Car">Car</option>
+              </select>
+            </div>
+            <div>
+              <label for="vehicle-hours">Expected hours</label>
+              <input id="vehicle-hours" name="hours" type="number" min="1" step="1" value="1" required>
+            </div>
+          </div>
+          <button class="button button-primary" type="submit">Assign a parking slot <span aria-hidden="true">→</span></button>
+          <p class="form-hint">Your vehicle will be assigned the first available slot.</p>
+        </form>
+      </div>
+
+      <div class="panel search-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">QUICK LOOKUP</p>
+            <h2>Find a vehicle</h2>
+          </div>
+          <span class="heading-icon search-icon" aria-hidden="true">⌕</span>
+        </div>
+        <form id="search-form" class="search-form">
+          <label class="visually-hidden" for="search-number">Vehicle number to find</label>
+          <input id="search-number" type="search" placeholder="Enter vehicle number" autocomplete="off" required>
+          <button class="button button-dark" type="submit">Search</button>
+        </form>
+        <div id="search-result" class="search-result empty-result">Search a registration number to see its parking details.</div>
+      </div>
+    </section>
+
+    <section class="lower-grid">
+      <div class="panel slots-panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LIVE OVERVIEW</p>
+            <h2>Parking slots</h2>
+          </div>
+          <div class="legend"><span class="legend-dot available-dot"></span> Available <span class="legend-dot occupied-dot"></span> Occupied</div>
+        </div>
+        <div id="slot-grid" class="slot-grid" aria-label="Parking slot status"></div>
+      </div>
+
+      <div class="panel vehicles-panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">ON THE LOT</p>
+            <h2>Parked vehicles</h2>
+          </div>
+          <span id="vehicle-list-count" class="count-badge">0</span>
+        </div>
+        <div id="vehicle-list" class="vehicle-list"></div>
+      </div>
+    </section>
+    <footer>Parking data is saved in this browser on this device.</footer>
+  </main>
+</body>
+</html>
